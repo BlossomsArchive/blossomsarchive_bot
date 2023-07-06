@@ -35,7 +35,7 @@ jobs:
           TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
 
         run: |
-          python test.py
+          python feed-post-and-list.py
           cat feed.txt
           cat post-list.txt
 
