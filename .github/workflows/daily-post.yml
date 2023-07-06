@@ -2,7 +2,8 @@ name: Daily_Post
 
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 3 * * *'
 jobs:
   Send_Note:
     runs-on: ubuntu-latest
