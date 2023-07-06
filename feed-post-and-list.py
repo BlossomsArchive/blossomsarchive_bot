@@ -60,7 +60,7 @@ while True:
         misskey_token = os.environ.get("MISSKEY_TOKEN")
         api = Misskey(misskey_address)
         api.token = misskey_token
-        #api.notes_create(text=post_text)
+        api.notes_create(text=post_text)
 
         # Mastodon
         mastdon_url = os.environ.get("MASTDON_BASE_URL")
@@ -73,7 +73,7 @@ while True:
             client_secret=mastdon_secret,
             access_token=mastdon_token,
         )
-        #api.toot(post_text)
+        api.toot(post_text)
 
         # Twitter
         twitter_bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
@@ -90,7 +90,7 @@ while True:
             access_token_secret=twitter_access_token_secret,
         )
 
-        #client.create_tweet(text=post_text)
+        client.create_tweet(text=post_text)
 
     print(post_text+"\n")
 
