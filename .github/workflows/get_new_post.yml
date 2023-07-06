@@ -21,7 +21,19 @@ jobs:
           pip install Mastodon.py
 
       - name: Create Note Content
-        
+        env:
+          MISSKEY_SERVER_ADDRESS: ${{ secrets.MISSKEY_SERVER_ADDRESS }}
+          MISSKEY_TOKEN: ${{ secrets.MISSKEY_TOKEN }}
+          MASTDON_BASE_URL: ${{ secrets.MASTDON_BASE_URL }}
+          MASTDON_CLIENT_ID: ${{ secrets.MASTDON_CLIENT_ID }}
+          MASTDON_SECRET: ${{ secrets.MASTDON_SECRET }}
+          MASTDON_TOKEN: ${{ secrets.MASTDON_TOKEN }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+
         run: |
           python test.py
           cat feed.txt
