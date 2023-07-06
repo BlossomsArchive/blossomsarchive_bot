@@ -1,0 +1,36 @@
+name: Get_New_Post
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  Send_Note:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Python Install
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Create Note Content
+        
+        run: |
+          python test.py
+          cat test.txt
+
+      - name: Update niconico_info_feed.txt
+        run: |
+          if ! git diff --exit-code --quiet
+          then
+           git add --update
+            git config --global user.name ${{ secrets.YOUSER_NAME }}
+            git config --global user.email ${{ secrets.MAIL_ADDRESS }}
+            git commit -m "Update the last update date and time"
+            git push
+          fi
