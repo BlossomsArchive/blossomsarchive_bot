@@ -3,7 +3,7 @@ name: Get_New_Post&Post_any_SNS
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   Send_Note:
@@ -17,20 +17,23 @@ jobs:
       - name: Python Install
         run: |
           python -m pip install --upgrade pip
+          pip install Misskey.py
+          pip install feedparser
 
       - name: Create Note Content
         
         run: |
           python test.py
-          cat test.txt
+          cat feed.txt
+          cat post-list.txt
 
-      - name: Update niconico_info_feed.txt
+      - name: Update File
         run: |
           if ! git diff --exit-code --quiet
           then
            git add --update
             git config --global user.name ${{ secrets.YOUSER_NAME }}
             git config --global user.email ${{ secrets.MAIL_ADDRESS }}
-            git commit -m "Update the last update date and time"
+            git commit -m "Update Content"
             git push
           fi
