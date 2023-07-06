@@ -34,4 +34,4 @@ jobs:
           TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
 
         run: |
-          python feed-post-and-list.py
+          python daily-picup.py
