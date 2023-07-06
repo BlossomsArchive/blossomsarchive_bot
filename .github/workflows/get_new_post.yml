@@ -1,4 +1,4 @@
-name: Get_New_Post
+name: Get_New_Post&Post_any_SNS
 
 on:
   workflow_dispatch:
