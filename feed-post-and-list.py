@@ -17,7 +17,7 @@ entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
 new_up = entries[0]["updated"]
 f2 = open("feed.txt", "w")
 f2.write(new_up)
-f2.close
+f2.close()
 
 i = 0
 while True:
@@ -28,7 +28,7 @@ while True:
             "feed.txt", "w"
         )
         f3.write(new_up)
-        f3.close
+        f3.close()
         break
 
     else:
