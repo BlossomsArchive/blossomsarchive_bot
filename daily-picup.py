@@ -4,6 +4,7 @@ from misskey import Misskey
 import tweepy
 from mastodon import Mastodon
 import os
+from atproto import Client
 
 
 # ファイル読み込み
