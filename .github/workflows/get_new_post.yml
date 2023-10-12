@@ -21,6 +21,7 @@ jobs:
           pip install feedparser
           pip install tweepy
           pip install Mastodon.py
+          pip install atproto
 
       - name: Create Note Content
         env:
