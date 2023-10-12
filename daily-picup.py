@@ -47,6 +47,11 @@ api = Mastodon(
 )
 api.toot(post_text)
 
+#bluesky
+bluesky = Client()
+bluesky.login(str(os.environ.get("BLUESKY_MAIL_ADDRESS")),str(os.environ.get("BLUESKY_PASSWORD")))
+bluesky.send_post(post_text)
+
 # Twitter
 twitter_bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
 twitter_consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
