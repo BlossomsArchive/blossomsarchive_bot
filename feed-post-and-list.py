@@ -5,6 +5,7 @@ import feedparser
 from misskey import Misskey
 import tweepy
 from mastodon import Mastodon
+from atproto import Client
 
 f = open("feed.txt", "r")
 old_up = f.read()
@@ -75,6 +76,11 @@ while True:
         )
         api.toot(post_text)
 
+        #bluesky
+        bluesky = Client()
+        bluesky.login(str(os.environ.get("BLUESKY_MAIL_ADDRESS")),str(os.environ.get("BLUESKY_PASSWORD")))
+        bluesky.send_post(post_text)
+        
         # Twitter
         twitter_bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
         twitter_consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
