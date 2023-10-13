@@ -51,7 +51,14 @@ api.toot(post_text)
 #bluesky
 bluesky = Client()
 bluesky.login(str(os.environ.get("BLUESKY_MAIL_ADDRESS")),str(os.environ.get("BLUESKY_PASSWORD")))
-bluesky.send_post(post_text)
+embed_external = models.AppBskyEmbedExternal.Main(
+    external = models.AppBskyEmbedExternal.External(
+        title = title,
+        description = "BlossomsArchive",
+        uri = page_url
+    )
+)
+bluesky.send_post("【本日のおすすめ記事】"+"\n"+title ,embed = embed_external)
 
 # Twitter
 twitter_bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
