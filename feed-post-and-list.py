@@ -5,7 +5,7 @@ import feedparser
 from misskey import Misskey
 import tweepy
 from mastodon import Mastodon
-from atproto import Client
+from atproto import Client ,models
 
 f = open("feed.txt", "r")
 old_up = f.read()
