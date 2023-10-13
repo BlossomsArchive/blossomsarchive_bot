@@ -55,7 +55,7 @@ embed_external = models.AppBskyEmbedExternal.Main(
     external = models.AppBskyEmbedExternal.External(
         title = title,
         description = "BlossomsArchive",
-        uri = page_url
+        uri = post_url
     )
 )
 bluesky.send_post("【本日のおすすめ記事】"+"\n"+title ,embed = embed_external)
