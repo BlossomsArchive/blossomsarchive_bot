@@ -158,5 +158,5 @@ for thread in threads:
     thread.join()
 
 # すべてのスレッドが終了した後にメッセージを表示
-print(post_text+"\n")
-print("終了しました")
+print("\n"+post_text+"\n")
+print("All End")
