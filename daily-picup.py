@@ -4,9 +4,9 @@ from misskey import Misskey
 import tweepy
 from mastodon import Mastodon
 import os
-from atproto import Client , models
+from atproto import Client, models
 import threading
-import  time
+import time
 
 
 # ファイル読み込み
@@ -26,33 +26,32 @@ title = title_and_url_list[0]
 # URLから末尾の\nを削除
 post_url = title_and_url_list[1].replace("\n", "")
 
-#投稿用フォーマットを作成
-post_text = "【本日のおすすめ記事】"+"\n"+title+"\n"+post_url
+# 投稿用フォーマットを作成
+post_text = "【本日のおすすめ記事】" + "\n" + title + "\n" + post_url
 
 
 # スレッドが終了したことを追跡するためのリスト
 threads = []
 
+
 # 各スレッドで実行する関数
 def thread_function(thread_id):
-    #Misskey
+    # Misskey
     if thread_id == 1:
         # 処理内容
         a = 1
         while True:
             try:
                 if a != 20:
-                    misskey_address = os.environ.get("MISSKEY_SERVER_ADDRESS")
-                    misskey_token = os.environ.get("MISSKEY_TOKEN")
-                    api = Misskey(misskey_address)
-                    api.token = misskey_token
+                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
+                    api.token = os.environ.get("MISSKEY_TOKEN")
                     api.notes_create(text=post_text)
                 else:
                     break
             except:
                 print(f"Misskey - Result: NO")
                 print(f"Misskey - ReTry: {a}")
-                a = a+1
+                a = a + 1
                 time.sleep(300)
             else:
                 print(f"Misskey - Result: OK")
@@ -65,15 +64,11 @@ def thread_function(thread_id):
         while True:
             try:
                 if b != 20:
-                    mastdon_url = os.environ.get("MASTDON_BASE_URL")
-                    mastdon_CID = os.environ.get("MASTDON_CLIENT_ID")
-                    mastdon_secret = os.environ.get("MASTDON_SECRET")
-                    mastdon_token = os.environ.get("MASTDON_TOKEN")
                     api = Mastodon(
-                        api_base_url=mastdon_url,
-                        client_id=mastdon_CID,
-                        client_secret=mastdon_secret,
-                        access_token=mastdon_token,
+                        api_base_url=os.environ.get("MASTDON_BASE_URL"),
+                        client_id=os.environ.get("MASTDON_CLIENT_ID"),
+                        client_secret=os.environ.get("MASTDON_SECRET"),
+                        access_token=os.environ.get("MASTDON_TOKEN"),
                     )
                     api.toot(post_text)
                 else:
@@ -81,59 +76,57 @@ def thread_function(thread_id):
             except:
                 print(f"Mastdon - Result: NO")
                 print(f"Mastdon - ReTry: {b}")
-                b = b+1
+                b = b + 1
                 time.sleep(300)
             else:
                 print(f"Mastdon - Result: OK")
                 break
 
-    #Bluesky
+    # Bluesky
     elif thread_id == 3:
         # 処理内容
-        c  = 1
+        c = 1
         while True:
             try:
                 if c != 20:
                     bluesky = Client()
-                    bluesky.login(str(os.environ.get("BLUESKY_MAIL_ADDRESS")),str(os.environ.get("BLUESKY_PASSWORD")))
+                    bluesky.login(
+                        str(os.environ.get("BLUESKY_MAIL_ADDRESS")),
+                        str(os.environ.get("BLUESKY_PASSWORD")),
+                    )
                     embed_external = models.AppBskyEmbedExternal.Main(
-                        external = models.AppBskyEmbedExternal.External(
-                            title = title,
-                            description = "BlossomsArchive",
-                            uri = post_url
+                        external=models.AppBskyEmbedExternal.External(
+                            title=title, description="BlossomsArchive", uri=post_url
                         )
                     )
-                    bluesky.send_post("【本日のおすすめ記事】"+"\n"+title ,embed = embed_external)
+                    bluesky.send_post(
+                        "【本日のおすすめ記事】" + "\n" + title, embed=embed_external
+                    )
 
                 else:
                     break
             except:
                 print(f"Bluesky - Result: NO")
                 print(f"Bluesky - ReTry: {c}")
-                c = c+1
+                c = c + 1
                 time.sleep(300)
             else:
                 print(f"Bluesky - Result: OK")
                 break
-        
-    #Twitter
+
+    # Twitter
     elif thread_id == 4:
         # 処理内容
         d = 1
         while True:
             try:
                 if d != 20:
-                    twitter_bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
-                    twitter_consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
-                    twitter_consumer_secret = os.environ.get("TWITTER_CONSUMER_SECRET")
-                    twitter_access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
-                    twitter_access_token_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
                     client = tweepy.Client(
-                        bearer_token=twitter_bearer_token,
-                        consumer_key=twitter_consumer_key,
-                        consumer_secret=twitter_consumer_secret,
-                        access_token=twitter_access_token,
-                        access_token_secret=twitter_access_token_secret,
+                        bearer_token=os.environ.get("TWITTER_BEARER_TOKEN"),
+                        consumer_key=os.environ.get("TWITTER_CONSUMER_KEY"),
+                        consumer_secret=os.environ.get("TWITTER_CONSUMER_SECRET"),
+                        access_token=os.environ.get("TWITTER_ACCESS_TOKEN"),
+                        access_token_secret=os.environ.get("TWITTER_ACCESS_TOKEN_SECRET"),
                     )
                     client.create_tweet(text=post_text)
                 else:
@@ -141,11 +134,12 @@ def thread_function(thread_id):
             except:
                 print(f"Twitter - Result: NO")
                 print(f"Twitter - ReTry: {d}")
-                d  = d+1
+                d = d + 1
                 time.sleep(300)
             else:
                 print(f"Twitter - Result: OK")
                 break
+
 
 # 4つのスレッドを作成し、それぞれ異なる関数を実行
 for i in range(1, 5):
@@ -158,5 +152,5 @@ for thread in threads:
     thread.join()
 
 # すべてのスレッドが終了した後にメッセージを表示
-print("\n"+post_text+"\n")
+print("\n" + post_text + "\n")
 print("All End")
