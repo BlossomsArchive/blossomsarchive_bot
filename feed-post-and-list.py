@@ -162,24 +162,24 @@ while True:
 
         post_text = "【" + author + "がブログを更新しました】\n" + title + "\n" + page_url
 
-    # スレッドが終了したことを追跡するためのリスト
-    threads = []
+        # スレッドが終了したことを追跡するためのリスト
+        threads = []
 
-    # 4つのスレッドを作成し、それぞれ異なる関数を実行
-    for i in range(1, 5):
-        thread = threading.Thread(target=thread_function, args=(i,))
-        threads.append(thread)
-        thread.start()
+        # 4つのスレッドを作成し、それぞれ異なる関数を実行
+        for i in range(1, 5):
+            thread = threading.Thread(target=thread_function, args=(i,))
+            threads.append(thread)
+            thread.start()
 
-    # 全てのスレッドが終了するのを待つ
-    for thread in threads:
-        thread.join()
+        # 全てのスレッドが終了するのを待つ
+        for thread in threads:
+            thread.join()
 
-    # すべてのスレッドが終了した後にメッセージを表示
-    print(post_text)
-    print("ALL Thread - Result: OK")
-    print("-----------------------")
-    i = i+1
-    print(i)
+        # すべてのスレッドが終了した後にメッセージを表示
+        print(post_text)
+        print("ALL Thread - Result: OK")
+        print("-----------------------")
+        i = i+1
+        print(i)
 
 print("All End")
