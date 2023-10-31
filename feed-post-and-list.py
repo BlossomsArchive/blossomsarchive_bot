@@ -22,6 +22,29 @@ f2 = open("feed.txt", "w")
 f2.write(new_up)
 f2.close()
 
+# 各スレッドで実行する関数
+def thread_function(thread_id):
+    # Misskey
+    if thread_id == 1:
+        # 処理内容
+        a = 1
+        while True:
+            try:
+                if a != 20:
+                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
+                    api.token = os.environ.get("MISSKEY_TOKEN")
+                    # api.notes_create(text=post_text)
+                else:
+                    break
+            except:
+                print(f"Misskey - Result: NO")
+                print(f"Misskey - ReTry: {a}")
+                a = a + 1
+                time.sleep(300)
+            else:
+                print(f"Misskey - Result: OK")
+                break
+
 i = 0
 while True:
     now_entry = entries[i]
@@ -77,26 +100,3 @@ while True:
     print(i)
 
 print("All End")
-
-# 各スレッドで実行する関数
-def thread_function(thread_id):
-    # Misskey
-    if thread_id == 1:
-        # 処理内容
-        a = 1
-        while True:
-            try:
-                if a != 20:
-                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
-                    api.token = os.environ.get("MISSKEY_TOKEN")
-                    # api.notes_create(text=post_text)
-                else:
-                    break
-            except:
-                print(f"Misskey - Result: NO")
-                print(f"Misskey - ReTry: {a}")
-                a = a + 1
-                time.sleep(300)
-            else:
-                print(f"Misskey - Result: OK")
-                break
