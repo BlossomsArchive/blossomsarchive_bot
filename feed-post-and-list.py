@@ -59,112 +59,6 @@ while True:
     # スレッドが終了したことを追跡するためのリスト
     threads = []
 
-    # 各スレッドで実行する関数
-    def thread_function(thread_id):
-        # Misskey
-        if thread_id == 1:
-            # 処理内容
-            a = 1
-            while True:
-                try:
-                    if a != 20:
-                        api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
-                        api.token = os.environ.get("MISSKEY_TOKEN")
-                        # api.notes_create(text=post_text)
-                    else:
-                        break
-                except:
-                    print(f"Misskey - Result: NO")
-                    print(f"Misskey - ReTry: {a}")
-                    a = a + 1
-                    time.sleep(300)
-                else:
-                    print(f"Misskey - Result: OK")
-                    break
-
-        # Mastodon
-        elif thread_id == 2:
-            # 処理内容
-            b = 1
-            while True:
-                try:
-                    if b != 20:
-                        api = Mastodon(
-                            api_base_url=os.environ.get("MASTDON_BASE_URL"),
-                            client_id=os.environ.get("MASTDON_CLIENT_ID"),
-                            client_secret=os.environ.get("MASTDON_SECRET"),
-                            access_token=os.environ.get("MASTDON_TOKEN"),
-                        )
-                        # api.toot(post_text)
-                    else:
-                        break
-                except:
-                    print(f"Mastdon - Result: NO")
-                    print(f"Mastdon - ReTry: {b}")
-                    b = b + 1
-                    time.sleep(300)
-                else:
-                    print(f"Mastdon - Result: OK")
-                    break
-
-        # Bluesky
-        elif thread_id == 3:
-            # 処理内容
-            c = 1
-            while True:
-                try:
-                    if c != 20:
-                        bluesky = Client()
-                        bluesky.login(
-                            str(os.environ.get("BLUESKY_MAIL_ADDRESS")),
-                            str(os.environ.get("BLUESKY_PASSWORD")),
-                        )
-                        embed_external = models.AppBskyEmbedExternal.Main(
-                            external=models.AppBskyEmbedExternal.External(
-                                title=title, description="BlossomsArchive", uri=page_url
-                            )
-                        )
-                        # bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
-
-                    else:
-                        break
-                except:
-                    print(f"Bluesky - Result: NO")
-                    print(f"Bluesky - ReTry: {c}")
-                    c = c + 1
-                    time.sleep(300)
-                else:
-                    print(f"Bluesky - Result: OK")
-                    break
-
-        # Twitter
-        elif thread_id == 4:
-            # 処理内容
-            d = 1
-            while True:
-                try:
-                    if d != 20:
-                        client = tweepy.Client(
-                            bearer_token=os.environ.get("TWITTER_BEARER_TOKEN"),
-                            consumer_key=os.environ.get("TWITTER_CONSUMER_KEY"),
-                            consumer_secret=os.environ.get("TWITTER_CONSUMER_SECRET"),
-                            access_token=os.environ.get("TWITTER_ACCESS_TOKEN"),
-                            access_token_secret=os.environ.get(
-                                "TWITTER_ACCESS_TOKEN_SECRET"
-                            ),
-                        )
-                        # client.create_tweet(text=post_text)
-                    else:
-                        break
-                except:
-                    print(f"Twitter - Result: NO")
-                    print(f"Twitter - ReTry: {d}")
-                    d = d + 1
-                    time.sleep(300)
-                else:
-                    print(f"Twitter - Result: OK")
-                    break
-
     # 4つのスレッドを作成し、それぞれ異なる関数を実行
     for i in range(1, 5):
         thread = threading.Thread(target=thread_function, args=(i,))
@@ -176,9 +70,33 @@ while True:
         thread.join()
 
     # すべてのスレッドが終了した後にメッセージを表示
+    print(post_text)
     print("ALL Thread - Result: OK")
     print("-----------------------")
     i = i+1
     print(i)
 
 print("All End")
+
+# 各スレッドで実行する関数
+def thread_function(thread_id):
+    # Misskey
+    if thread_id == 1:
+        # 処理内容
+        a = 1
+        while True:
+            try:
+                if a != 20:
+                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
+                    api.token = os.environ.get("MISSKEY_TOKEN")
+                    # api.notes_create(text=post_text)
+                else:
+                    break
+            except:
+                print(f"Misskey - Result: NO")
+                print(f"Misskey - ReTry: {a}")
+                a = a + 1
+                time.sleep(300)
+            else:
+                print(f"Misskey - Result: OK")
+                break
