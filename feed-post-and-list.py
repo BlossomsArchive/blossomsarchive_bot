@@ -22,9 +22,9 @@ f2 = open("feed.txt", "w")
 f2.write(new_up)
 f2.close()
 
-while_count = 0
+i = 0
 while True:
-    now_entry = entries[while_count]
+    now_entry = entries[i]
     if now_entry["updated"] == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
@@ -72,8 +72,7 @@ while True:
                     if a != 20:
                         api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
                         api.token = os.environ.get("MISSKEY_TOKEN")
-                        #api.notes_create(text=post_text)
-                        print("Misskey - "+title)
+                        # api.notes_create(text=post_text)
                     else:
                         break
                 except:
@@ -98,8 +97,7 @@ while True:
                             client_secret=os.environ.get("MASTDON_SECRET"),
                             access_token=os.environ.get("MASTDON_TOKEN"),
                         )
-                        #api.toot(post_text)
-                        print("Mastdon - "+title)
+                        # api.toot(post_text)
                     else:
                         break
                 except:
@@ -128,8 +126,8 @@ while True:
                                 title=title, description="BlossomsArchive", uri=page_url
                             )
                         )
-                        #bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
-                        print("Bluesky - "+title)
+                        # bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
+
                     else:
                         break
                 except:
@@ -157,8 +155,7 @@ while True:
                                 "TWITTER_ACCESS_TOKEN_SECRET"
                             ),
                         )
-                        #client.create_tweet(text=post_text)
-                        print("Twitter - "+title)
+                        # client.create_tweet(text=post_text)
                     else:
                         break
                 except:
@@ -183,6 +180,6 @@ while True:
 
     # すべてのスレッドが終了した後にメッセージを表示
     print("\n" + post_text + "\n")
-    while_count += 1
+    i += 1
         
 print("All End")
