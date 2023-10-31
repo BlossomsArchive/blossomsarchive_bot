@@ -56,10 +56,8 @@ while True:
 
         post_text = "【" + author + "がブログを更新しました】\n" + title + "\n" + page_url
 
-
     # スレッドが終了したことを追跡するためのリスト
     threads = []
-
 
     # 各スレッドで実行する関数
     def thread_function(thread_id):
@@ -167,7 +165,6 @@ while True:
                     print(f"Twitter - Result: OK")
                     break
 
-
     # 4つのスレッドを作成し、それぞれ異なる関数を実行
     for i in range(1, 5):
         thread = threading.Thread(target=thread_function, args=(i,))
@@ -179,7 +176,9 @@ while True:
         thread.join()
 
     # すべてのスレッドが終了した後にメッセージを表示
-    print("\n" + post_text + "\n")
-    i += 1
-        
+    print("ALL Thread - Result: OK")
+    print("-----------------------")
+    i = i+1
+    print(i)
+
 print("All End")
