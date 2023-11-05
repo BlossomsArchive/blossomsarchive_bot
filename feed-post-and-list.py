@@ -165,7 +165,7 @@ while True:
         e = 1
         # 4つのスレッドを作成し、それぞれ異なる関数を実行
         for e in range(1, 5):
-            thread = threading.Thread(target=thread_function, args=(i,))
+            thread = threading.Thread(target=thread_function, args=(e,))
             threads.append(thread)
             thread.start()
 
