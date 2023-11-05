@@ -19,7 +19,7 @@ def thread_function(thread_id):
                 if a != 20:
                     api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
                     api.token = os.environ.get("MISSKEY_TOKEN")
-                    # api.notes_create(text=post_text)
+                    api.notes_create(text=post_text)
                     print()
                 else:
                     break
@@ -44,7 +44,7 @@ def thread_function(thread_id):
                         client_secret=os.environ.get("MASTDON_SECRET"),
                         access_token=os.environ.get("MASTDON_TOKEN"),
                     )
-                    # api.toot(post_text)
+                    api.toot(post_text)
                     print()
                 else:
                     break
@@ -73,7 +73,7 @@ def thread_function(thread_id):
                             title=title, description="BlossomsArchive", uri=page_url
                         )
                     )
-                    # bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
+                    bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
                     print()
                 else:
                     break
@@ -101,7 +101,7 @@ def thread_function(thread_id):
                             "TWITTER_ACCESS_TOKEN_SECRET"
                         ),
                     )
-                    # client.create_tweet(text=post_text)
+                    client.create_tweet(text=post_text)
                     print()
                 else:
                     break
