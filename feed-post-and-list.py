@@ -126,7 +126,7 @@ entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
 i = 0
 while True:
     now_entry = entries[i]
-    if now_entry["updated"] == old_up:
+    if entries[i].published == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
         f3.write(new_up)
