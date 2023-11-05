@@ -8,7 +8,6 @@ import threading
 import time
 import feedparser
 
-
 # 各スレッドで実行する関数
 def thread_function(thread_id):
     # Misskey
@@ -116,7 +115,6 @@ def thread_function(thread_id):
                 print(f"Twitter - Result: OK")
                 break
 
-
 f = open("feed.txt", "r")
 old_up = f.read()
 f.close()
@@ -128,7 +126,7 @@ entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
 i = 0
 while True:
     now_entry = entries[i]
-    if now_entry["pubDate"] == old_up:
+    if now_entry["updated"] == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
         f3.write(new_up)
@@ -182,7 +180,7 @@ while True:
 
 print("All End")
 
-new_up = entries[0]["pubDate"]
+new_up = entries[0]["updated"]
 f2 = open("feed.txt", "w")
 f2.write(new_up)
 f2.close()
