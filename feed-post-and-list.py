@@ -8,14 +8,6 @@ import threading
 import time
 import feedparser
 
-f = open("feed.txt", "r")
-old_up = f.read()
-f.close()
-
-post_list = "post-list.txt"
-
-entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
-
 
 # 各スレッドで実行する関数
 def thread_function(thread_id):
@@ -125,10 +117,18 @@ def thread_function(thread_id):
                 break
 
 
+f = open("feed.txt", "r")
+old_up = f.read()
+f.close()
+
+post_list = "post-list.txt"
+
+entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
+
 i = 0
 while True:
     now_entry = entries[i]
-    if now_entry["updated"] == old_up:
+    if now_entry["pubDate"] == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
         f3.write(new_up)
@@ -182,7 +182,7 @@ while True:
 
 print("All End")
 
-new_up = entries[0]["updated"]
+new_up = entries[0]["pubDate"]
 f2 = open("feed.txt", "w")
 f2.write(new_up)
 f2.close()
