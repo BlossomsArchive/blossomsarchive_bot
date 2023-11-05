@@ -118,6 +118,7 @@ def thread_function(thread_id):
 f = open("feed.txt", "r")
 old_up = f.read()
 f.close()
+print(old_up)
 
 post_list = "post-list.txt"
 
