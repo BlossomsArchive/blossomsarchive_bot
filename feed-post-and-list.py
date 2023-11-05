@@ -118,7 +118,7 @@ def thread_function(thread_id):
 f = open("feed.txt", "r")
 lines = f.readlines()
 old_ups = [line.rstrip("\n") for line in lines]
-old_up = old_ups[2]
+old_up = old_ups[0]
 f.close()
 print(old_up)
 
