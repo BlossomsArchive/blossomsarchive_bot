@@ -127,6 +127,7 @@ entries = entries.entries
 i = 0
 while True:
     now_entry = entries[i]
+    print(now_entry["updated"])
     if now_entry["updated"] == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
