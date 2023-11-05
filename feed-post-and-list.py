@@ -121,12 +121,13 @@ f.close()
 
 post_list = "post-list.txt"
 
-entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
+entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")
+entries = entries.entries
 
 i = 0
 while True:
     now_entry = entries[i]
-    if entries[i].published == old_up:
+    if now_entry["updated"] == old_up:
         new_up = entries[0]["updated"]
         f3 = open("feed.txt", "w")
         f3.write(new_up)
