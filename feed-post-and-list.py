@@ -26,7 +26,7 @@ def thread_function(thread_id):
             except:
                 print(f"Misskey - Result: NO - ReTry: {a}")
                 a = a + 1
-                time.sleep(10)
+                time.sleep(300)
             else:
                 print("Misskey - Result: OK")
                 break
@@ -51,7 +51,7 @@ def thread_function(thread_id):
             except:
                 print(f"Mastdon - Result: NO - ReTry: {b}")
                 b = b + 1
-                time.sleep(10)
+                time.sleep(300)
             else:
                 print("Mastdon - Result: OK")
                 break
@@ -80,7 +80,7 @@ def thread_function(thread_id):
             except:
                 print(f"Bluesky - Result: NO - ReTry: {c}")
                 c = c + 1
-                time.sleep(10)
+                time.sleep(300)
             else:
                 print("Bluesky - Result: OK")
                 break
@@ -110,7 +110,7 @@ def thread_function(thread_id):
                     f"Twitter - Result: NO - ReTry: {d}D:\download\blossomsarchive_bot-main\blossomsarchive_bot-main"
                 )
                 d = d + 1
-                time.sleep(10)
+                time.sleep(300)
             else:
                 print(f"Twitter - Result: OK")
                 break
