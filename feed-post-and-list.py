@@ -8,7 +8,6 @@ import threading
 import time
 import feedparser
 
-
 f = open("feed.txt", "r")
 old_up = f.read()
 f.close()
@@ -17,10 +16,6 @@ post_list = "post-list.txt"
 
 entries = feedparser.parse("https://blossomsarchive.com/blog/feed/")["entries"]
 
-new_up = entries[0]["updated"]
-f2 = open("feed.txt", "w")
-f2.write(new_up)
-f2.close()
 
 # 各スレッドで実行する関数
 def thread_function(thread_id):
@@ -34,15 +29,15 @@ def thread_function(thread_id):
                     api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
                     api.token = os.environ.get("MISSKEY_TOKEN")
                     # api.notes_create(text=post_text)
+                    print()
                 else:
                     break
             except:
-                print(f"Misskey - Result: NO")
-                print(f"Misskey - ReTry: {a}")
+                print(f"Misskey - Result: NO - ReTry: {a}")
                 a = a + 1
-                time.sleep(300)
+                time.sleep(10)
             else:
-                print(f"Misskey - Result: OK")
+                print("Misskey - Result: OK")
                 break
 
             # Mastodon
@@ -59,15 +54,15 @@ def thread_function(thread_id):
                         access_token=os.environ.get("MASTDON_TOKEN"),
                     )
                     # api.toot(post_text)
+                    print()
                 else:
                     break
             except:
-                print(f"Mastdon - Result: NO")
-                print(f"Mastdon - ReTry: {b}")
+                print(f"Mastdon - Result: NO - ReTry: {b}")
                 b = b + 1
-                time.sleep(300)
+                time.sleep(10)
             else:
-                print(f"Mastdon - Result: OK")
+                print("Mastdon - Result: OK")
                 break
 
     # Bluesky
@@ -88,16 +83,15 @@ def thread_function(thread_id):
                         )
                     )
                     # bluesky.send_post("【" + author + "がブログを更新しました】\n" + title ,embed = embed_external)
-
+                    print()
                 else:
                     break
             except:
-                print(f"Bluesky - Result: NO")
-                print(f"Bluesky - ReTry: {c}")
+                print(f"Bluesky - Result: NO - ReTry: {c}")
                 c = c + 1
-                time.sleep(300)
+                time.sleep(10)
             else:
-                print(f"Bluesky - Result: OK")
+                print("Bluesky - Result: OK")
                 break
 
     # Twitter
@@ -117,16 +111,19 @@ def thread_function(thread_id):
                         ),
                     )
                     # client.create_tweet(text=post_text)
+                    print()
                 else:
                     break
             except:
-                print(f"Twitter - Result: NO")
-                print(f"Twitter - ReTry: {d}")
+                print(
+                    f"Twitter - Result: NO - ReTry: {d}D:\download\blossomsarchive_bot-main\blossomsarchive_bot-main"
+                )
                 d = d + 1
-                time.sleep(300)
+                time.sleep(10)
             else:
                 print(f"Twitter - Result: OK")
                 break
+
 
 i = 0
 while True:
@@ -165,8 +162,9 @@ while True:
         # スレッドが終了したことを追跡するためのリスト
         threads = []
 
+        e = 1
         # 4つのスレッドを作成し、それぞれ異なる関数を実行
-        for i in range(1, 5):
+        for e in range(1, 5):
             thread = threading.Thread(target=thread_function, args=(i,))
             threads.append(thread)
             thread.start()
@@ -179,7 +177,12 @@ while True:
         print(post_text)
         print("ALL Thread - Result: OK")
         print("-----------------------")
-        i = i+1
+        i = i + 1
         print(i)
 
 print("All End")
+
+new_up = entries[0]["updated"]
+f2 = open("feed.txt", "w")
+f2.write(new_up)
+f2.close()
