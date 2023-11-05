@@ -116,7 +116,9 @@ def thread_function(thread_id):
                 break
 
 f = open("feed.txt", "r")
-old_up = f.read()[1]
+lines = f.readlines()
+old_ups = [line.rstrip("\n") for line in lines]
+old_up = old_ups[2]
 f.close()
 print(old_up)
 
