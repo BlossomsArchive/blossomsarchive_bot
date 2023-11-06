@@ -153,7 +153,7 @@ while True:
                     content_list_content = title + "," + page_url + "\n"
                     f4 = open(post_list, "a", encoding="utf-8")
                     f4.write(content_list_content)
-                    f4.close
+                    f4.close()
 
             else:
                 break
