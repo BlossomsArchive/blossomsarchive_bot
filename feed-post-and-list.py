@@ -17,8 +17,7 @@ def thread_function(thread_id):
         while True:
             try:
                 if a != 20:
-                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"))
-                    api.token = os.environ.get("MISSKEY_TOKEN")
+                    api = Misskey(os.environ.get("MISSKEY_SERVER_ADDRESS"),os.environ.get("MISSKEY_TOKEN"))
                     api.notes_create(text=post_text)
                     print()
                 else:
