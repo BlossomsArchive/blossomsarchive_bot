@@ -2,8 +2,8 @@ name: Get_New_Post&Post_any_SNS
 
 on:
   workflow_dispatch:
-  # schedule:
-  #  - cron: '*/10 * * * *'
+  schedule:
+   - cron: '*/10 * * * *'
 
 jobs:
   Send_Note:
